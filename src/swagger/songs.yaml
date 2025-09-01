@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: Songs API
+  version: 1.0.0
+paths:
+  /api/songs/list/{userId}:
+    get:
+      summary: Get a list of songs with labels for the user based on a personal list of recommendations
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response with list of songs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SongWithLabel'
+        '400':
+          description: Invalid user ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      userId:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            example: "field"
+                          value:
+                            type: string
+                            example: "some string"
+                          msg:
+                            type: string
+                            example: "Invalid value"
+                          path:
+                            type: string
+                            example: "userId"
+                          location:
+                            type: string
+                            example: "params"
+
+components:
+  schemas:
+    SongWithLabel:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        genre:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Rock"
+        artist:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Queen"
+        label:
+          type: string
+          nullable: true
+          enum: [perfect_match, good_match, null]
+          example: perfect_match
