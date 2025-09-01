@@ -3,7 +3,6 @@ import ExternalRecommendationsController from '@src/controllers/external-recomme
 
 const router = Router();
 
-
-router.get("/", ExternalRecommendationsController.list)
+router.get("/", ExternalRecommendationsController.list);
 
 export default router;

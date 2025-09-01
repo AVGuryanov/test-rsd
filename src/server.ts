@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import router from '@src/router/index.js';
 import cors from 'cors';
 import qs from 'qs';
+import { NextFunction, Request, Response } from "express";
 
 const app = express();
 
@@ -26,7 +27,16 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api', router);
 
-const port = process.env.PORT || 3000;
+app.use(function(error: { code: number; error: unknown }, _req: Request, res: Response, _next: NextFunction) {
+  const statusCode = error?.code || 500;
+
+  res.status(statusCode).send(error);
+});
+
+const port = process.env.PORT;
+
+if (!port) throw new Error('server port not defined in .env');
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

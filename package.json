@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --build && tsc-alias",
     "seed": "tsx src/db/seed.ts",
-    "start": "node ./dist/server.js",
+    "start": "node ./dist/src/server.js",
     "start:repl": "tsx ./src/repl.ts",
     "start:dev": "tsx watch --include \"src/*\" ./src/server.ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
@@ -24,6 +24,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "express-validator": "^7.2.1",
     "ioredis": "^5.6.1",
     "jest": "^29.7.0",
     "lodash-es": "^4.17.21",
