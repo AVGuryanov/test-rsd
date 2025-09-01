@@ -59,4 +59,6 @@ model Song {
 
   genre  Genre  @relation(fields: [genreId], references: [id])
   artist Artist @relation(fields: [artistId], references: [id])
+
+  @@map("songs")
 }
